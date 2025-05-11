@@ -64,7 +64,7 @@ def clean_titles(df: pd.DataFrame) -> pd.DataFrame:
 
 def standardize_imdb_ids(df: pd.DataFrame) -> pd.DataFrame:
     """Standardize IMDB IDs to ensure consistent format."""
-    # Make a copy to avoid modifying the original
+    # Adding 'tt' prefix if missing - IMDB standard format
     df = df.copy()
     
     def standardize_imdb(imdb_id):
@@ -90,7 +90,7 @@ def standardize_imdb_ids(df: pd.DataFrame) -> pd.DataFrame:
 
 def normalize_years(df: pd.DataFrame) -> pd.DataFrame:
     """Normalize year values to ensure they are valid."""
-    # Make a copy to avoid modifying the original
+    # Only accept years in reasonable range (1890-present)
     df = df.copy()
     
     def clean_year(year):
@@ -119,7 +119,7 @@ def normalize_years(df: pd.DataFrame) -> pd.DataFrame:
 
 def clean_summaries(df: pd.DataFrame) -> pd.DataFrame:
     """Clean and standardize film summaries."""
-    # Make a copy to avoid modifying the original
+    # Fix common issues in text summaries (whitespace, quotes, newlines)
     df = df.copy()
     
     def clean_summary(summary):
@@ -146,7 +146,7 @@ def clean_summaries(df: pd.DataFrame) -> pd.DataFrame:
 
 def normalize_people(df: pd.DataFrame) -> pd.DataFrame:
     """Normalize the people field to ensure consistent format."""
-    # Make a copy to avoid modifying the original
+    # Standardize semicolon-separated lists, remove duplicates
     df = df.copy()
     
     def clean_people(people):
@@ -182,7 +182,7 @@ def enrich_dataset(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         Enriched DataFrame with additional columns
     """
-    # Make a copy to avoid modifying the original
+    # Add computed columns to enhance analysis capabilities
     df = df.copy()
     
     # Add decade column based on year
@@ -216,7 +216,7 @@ def add_language_column(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         DataFrame with additional language column
     """
-    # Make a copy to avoid modifying the original
+    # Use regex to extract language information from summaries
     df = df.copy()
     
     # Common Indian languages in films
@@ -254,6 +254,7 @@ def generate_data_quality_report(df: pd.DataFrame) -> Dict[str, Any]:
     Returns:
         Dictionary with quality metrics
     """
+    # Generate stats for data quality assessment
     report = {
         'total_rows': len(df),
         'null_counts': {col: int(df[col].isna().sum()) for col in df.columns},

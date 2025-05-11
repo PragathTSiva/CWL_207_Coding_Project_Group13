@@ -45,6 +45,7 @@ REPORTS_DIR.mkdir(parents=True, exist_ok=True)
 # ------------------------------------------------------------------
 def build_subcats() -> dict[str, list[str]]:
     """Step 1: Build subcategory maps"""
+    # Use checkpoints to resume interrupted runs - saves progress
     checkpoint_file = CHECKPOINT_DIR / "subcats.json"
     
     # Check if checkpoint exists
@@ -66,6 +67,7 @@ def build_subcats() -> dict[str, list[str]]:
 
 def build_films(subcats_map: dict[str, list[str]]) -> dict[str, set[str]]:
     """Step 2: Build film maps from subcategories"""
+    # Create mappings from categories to actual film pages
     checkpoint_file = CHECKPOINT_DIR / "films.json"
     
     # Check if checkpoint exists
@@ -93,6 +95,7 @@ def build_films(subcats_map: dict[str, list[str]]) -> dict[str, set[str]]:
 
 def resolve_qids(titles, group) -> dict[str, str]:
     """Step 3: Resolve Wikidata Q-IDs for titles"""
+    # Map Wikipedia page titles to Wikidata QIDs for later querying
     checkpoint_file = CHECKPOINT_DIR / f"qids_{slugify(group)}.json"
     
     # Check if checkpoint exists
@@ -121,6 +124,7 @@ def resolve_qids(titles, group) -> dict[str, str]:
 
 def fetch_metadata(qid_map, group) -> dict[str, dict]:
     """Step 4: Fetch Wikidata metadata for Q-IDs"""
+    # Get film metadata like year, IMDB ID, people from Wikidata SPARQL
     checkpoint_file = CHECKPOINT_DIR / f"metadata_{slugify(group)}.json"
     
     # Check if checkpoint exists
@@ -153,6 +157,7 @@ def fetch_metadata(qid_map, group) -> dict[str, dict]:
 
 def fetch_summaries(qid_map, group):
     """Step 5: Fetch Wikipedia summaries for titles"""
+    # Get plot summaries from Wikipedia REST API (async for performance)
     checkpoint_file = CHECKPOINT_DIR / f"summaries_{slugify(group)}.json"
     
     # Check if checkpoint exists
@@ -174,6 +179,7 @@ def fetch_summaries(qid_map, group):
 
 def assemble_csv(qid_map, meta_map, summaries, group):
     """Step 6: Assemble and write CSV file"""
+    # Final step: build dataframe and apply cleaning and enrichment 
     # Create output directory if it doesn't exist
     DATA_PROCESSED.mkdir(parents=True, exist_ok=True)
     
@@ -213,6 +219,7 @@ def assemble_csv(qid_map, meta_map, summaries, group):
 # ------------------------------------------------------------------
 def main(steps=None, specific_group=None):
     """Main function with optional step selection"""
+    # Command-line interface logic - allows running specific steps or groups
     if steps is None:
         steps = ["all"]
     

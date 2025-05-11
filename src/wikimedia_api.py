@@ -22,6 +22,7 @@ from src.config import (
 )
 
 # ---------- SPARQL ----------
+# Initialize SPARQL wrapper for Wikidata queries
 sparql = SPARQLWrapper(WIKIDATA_ENDPOINT)
 sparql.setReturnFormat(JSON)
 
@@ -46,6 +47,7 @@ def run_sparql(query: str, retries: int = 3, backoff: float = 2.0) -> list[dict[
 def _safe_request(params: dict[str, Any],
                   retries: int = 3,
                   backoff: float = 1.5) -> dict[str, Any]:
+    # Helper function to make API requests with retry logic
     for attempt in range(1, retries + 1):
         try:
             resp = requests.get(MEDIAWIKI_API,
@@ -82,6 +84,7 @@ def fetch_category_members(cat_title: str,
     return members
 
 # ---------- Async summaries ----------
+# Utilizing async to speed up summary fetching (major performance bottleneck otherwise)
 async def _fetch_summary(session: aiohttp.ClientSession, title: str) -> str | None:
     url = f"https://en.wikipedia.org/api/rest_v1/page/summary/{urllib.parse.quote(title, safe='')}"
     async with session.get(url, headers=HEADERS) as resp:
@@ -91,6 +94,7 @@ async def _fetch_summary(session: aiohttp.ClientSession, title: str) -> str | No
         return data.get("extract")
 
 async def gather_summaries(titles: list[str]) -> dict[str, str | None]:
+    # Uses semaphore to limit concurrent connections based on MAX_CONCURRENCY
     sem = asyncio.Semaphore(MAX_CONCURRENCY)
     async with aiohttp.ClientSession() as session:
         async def worker(t):
@@ -107,6 +111,7 @@ async def gather_summaries(titles: list[str]) -> dict[str, str | None]:
 # ---------- Batched Wikidata metadata ----------
 def query_wikidata_batch(qids: list[str]) -> dict[str, dict[str, str | int | None]]:
     """Resolve up to ~200 Q-IDs at once; returns imdb_id, year, people list."""
+    # Construct SPARQL query with VALUES clause for batching efficiency
     values = " ".join(f"wd:{q}" for q in qids)
     q = f"""
     SELECT ?film ?imdb ?date ?personLabel WHERE {{
