@@ -1,0 +1,44 @@
+{
+  "total_rows": 8452,
+  "null_counts": {
+    "title": 0,
+    "imdb_id": 560,
+    "year": 1381,
+    "summary": 6353,
+    "people": 1611,
+    "decade": 1381,
+    "people_count": 0,
+    "has_summary": 0,
+    "language": 6830
+  },
+  "null_percentages": {
+    "title": 0.0,
+    "imdb_id": 6.63,
+    "year": 16.34,
+    "summary": 75.17,
+    "people": 19.06,
+    "decade": 16.34,
+    "people_count": 0.0,
+    "has_summary": 0.0,
+    "language": 80.81
+  },
+  "duplicates": 0,
+  "year_range": [
+    1913,
+    2025
+  ],
+  "decade_distribution": {
+    "2010.0": 2058,
+    "2000.0": 1070,
+    "1990.0": 901,
+    "1980.0": 828,
+    "1970.0": 578,
+    "2020.0": 486,
+    "1960.0": 410,
+    "1950.0": 377,
+    "1940.0": 229,
+    "1930.0": 124,
+    "1920.0": 6,
+    "1910.0": 4
+  }
+}

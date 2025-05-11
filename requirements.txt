@@ -1,6 +1,15 @@
-# Requirements will be populated in Step 3
-# Common data science packages
-# numpy==1.24.3
-# pandas==2.0.1
-# matplotlib==3.7.1
-# scikit-learn==1.2.2 
+# ─── Core data / HTTP libs ─────────────────────────
+numpy==1.24.3
+pandas==2.0.1
+matplotlib==3.7.1
+scikit-learn==1.2.2
+requests==2.31.0
+aiohttp==3.8.5
+SPARQLWrapper==2.0.0
+tqdm==4.66.1
+
+# ─── Wikipedia / Wikidata helpers ──────────────────
+wikipedia>=1.4.0
+
+# ─── Async stack for the fast-path scraper ─────────
+nest_asyncio>=1.6.0
