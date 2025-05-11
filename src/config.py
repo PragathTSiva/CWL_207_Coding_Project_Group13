@@ -29,7 +29,6 @@ TARGET_GROUPS = [
 ]
 
 # ---------- Paths ----------
-# Path configurations for data storage - raw data and processed results
+# Path configurations for data storage - processed results
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
-DATA_RAW     = PROJECT_ROOT / "data" / "raw"
 DATA_PROCESSED = PROJECT_ROOT / "data" / "processed"
