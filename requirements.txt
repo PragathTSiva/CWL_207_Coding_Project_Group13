@@ -1,0 +1,6 @@
+# Requirements will be populated in Step 3
+# Common data science packages
+# numpy==1.24.3
+# pandas==2.0.1
+# matplotlib==3.7.1
+# scikit-learn==1.2.2 

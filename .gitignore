@@ -38,4 +38,30 @@ yarn-error.log*
 *~
 .project
 .classpath
-.settings/ 
+.settings/
+
+# Python-specific
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+develop-eggs/
+downloads/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb
+
+# Data
+data/raw/*
+!data/raw/.gitkeep 
