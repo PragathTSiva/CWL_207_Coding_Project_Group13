@@ -1,4 +1,3 @@
-# src/config.py
 """
 Centralised configuration so a grader can tweak without digging into logic.
 """
@@ -13,7 +12,7 @@ MEDIAWIKI_API     = "https://en.wikipedia.org/w/api.php"
 HEADERS = {
     "User-Agent": (
         "IndianFilmScraper/1.0 "
-        "(University of Illinois coursework; contact: netid@illinois.edu)"
+        "(University of Illinois coursework; contact: ptsiva2@illinois.edu)"
     )
 }
 
